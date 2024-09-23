@@ -1,20 +1,18 @@
 package com.llm.receipt_review.server.domains.receipt.service.Upstage;
 
+import com.llm.receipt_review.server.constant.CustomResponseStatus;
+import com.llm.receipt_review.server.constant.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -22,49 +20,39 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional
 @Slf4j
-public class UpstageApiServiceImpl implements UpstageApiService{
+public class UpstageApiServiceImpl implements UpstageApiService {
 
     private final WebClient webClient;
+    private static final String MODEL_NAME = "receipt-extraction";
+
     public Mono<Object> apiReceiptOcr(MultipartFile receiptPhoto) throws IOException {
 
-        String modelName = "receipt-extraction";
-//        MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
-
-        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("document", new FileSystemResource(multipartToFile(receiptPhoto)));  // Use FileSystemResource to send the file
-        body.add("model", "receipt-extraction");  //
-//
-//        multipartBodyBuilder.part("document", receiptPhoto);
-//        multipartBodyBuilder.part("model", modelName);
+        BodyInserters.MultipartInserter multiPartFile = getMultiPartFile(receiptPhoto);
 
         log.info("웹 api 서비스 요청 시작");
-
 
         try {
             Mono<Map> mapMono = webClient.post()
                     .uri("/document-ai/extraction")
                     .contentType(MediaType.MULTIPART_FORM_DATA) // Content-Type 설정
-                    .body(BodyInserters.fromMultipartData(body))
+                    .body(multiPartFile)
                     .retrieve()
                     .bodyToMono(Map.class);
 
-
             log.info("Upstage 리턴값: " + mapMono.block());
             return Mono.empty();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.info("error in Upstage : " + e);
         }
-        log.info("빈 값 리턴");
-        return Mono.empty();
+        throw new CustomException(CustomResponseStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private File multipartToFile(MultipartFile multipartFile) throws IllegalStateException, IOException{
+    private static BodyInserters.MultipartInserter getMultiPartFile(MultipartFile file) {
+        MultipartBodyBuilder builder = new MultipartBodyBuilder();
+        builder.part("document", file.getResource());
+        builder.part("model", MODEL_NAME);
 
-        File file = new File(multipartFile.getOriginalFilename());
-        multipartFile.transferTo(file);
-        return file;
-
+        return BodyInserters.fromMultipartData(builder.build());
     }
 
 }
