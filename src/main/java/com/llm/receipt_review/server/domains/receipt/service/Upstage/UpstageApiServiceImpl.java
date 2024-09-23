@@ -28,14 +28,14 @@ public class UpstageApiServiceImpl implements UpstageApiService{
     public Mono<Object> apiReceiptOcr(MultipartFile receiptPhoto) throws IOException {
 
         String modelName = "receipt-extraction";
-        MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
+//        MultipartBodyBuilder multipartBodyBuilder = new MultipartBodyBuilder();
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("document", new FileSystemResource(multipartToFile(receiptPhoto)));  // Use FileSystemResource to send the file
         body.add("model", "receipt-extraction");  //
-
-        multipartBodyBuilder.part("document", receiptPhoto);
-        multipartBodyBuilder.part("model", modelName);
+//
+//        multipartBodyBuilder.part("document", receiptPhoto);
+//        multipartBodyBuilder.part("model", modelName);
 
         log.info("웹 api 서비스 요청 시작");
 
