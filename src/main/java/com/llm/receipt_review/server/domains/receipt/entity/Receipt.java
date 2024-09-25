@@ -17,21 +17,23 @@ public class Receipt {
 
     private Long storeId;
 
+    //store
     private String storeName;
 
-    private String phone;
+    private String branchName;
 
-    private String approvalNumber;
+    private String phoneNumber;
 
     private String storeAddress;
-
-    private LocalDateTime dateTime;
-
     private String businessNumber;
 
+    //total
     private String totalPrice;
 
-    private List<String> itemPrices = new ArrayList<>();
+    //transaction
+    private LocalDateTime dateTime;
+    private String approvalCode;
+    private String ccCode; //카드사 정보 (비즈니스 활용)
 
 
 

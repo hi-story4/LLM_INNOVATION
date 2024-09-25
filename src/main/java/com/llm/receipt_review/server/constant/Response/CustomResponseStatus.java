@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.constant;
+package com.llm.receipt_review.server.constant.Response;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
