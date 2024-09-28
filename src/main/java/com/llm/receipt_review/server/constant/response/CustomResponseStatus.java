@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.constant.Response;
+package com.llm.receipt_review.server.constant.response;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -16,10 +16,14 @@ public enum CustomResponseStatus {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "4001", "해당 유저를 찾을 수 없습니다."),
 //    6000
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6000", "내부 서버 오류입니다."),
-    RECEIPT_OCR_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(),"6001", "영수증 OCR 인식에 실패했습니다.value"),
+    RECEIPT_OCR_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(),"6001", "영수증 OCR 인식에 실패했습니다."),
+    MAPPING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6002", "객체 매핑에 실패했습니다"),
 
 //    7000
-    INVALID_ERROR(HttpStatus.BAD_REQUEST.value(), "7000", "유효하지 않은 데이터입니다.");
+    INVALID_ERROR(HttpStatus.BAD_REQUEST.value(), "7000", "유효하지 않은 데이터입니다."),
+    REDUNDANT_RECEIPT(HttpStatus.BAD_REQUEST.value(), "7001", "이미 등록된 영수증입니다."),
+    STORE_MATCH_ERROR(HttpStatus.BAD_REQUEST.value(), "7002", "해당 가게의 영수증이 아닙니다.");
+
 
 
 

@@ -1,4 +1,5 @@
-package com.llm.receipt_review.server.domains.receipt.controller;
+package com.llm.receipt_review.server.domains.client.controller;
+
 
 
 import com.llm.receipt_review.server.constant.response.ApiResponse;
@@ -14,21 +15,15 @@ import java.io.IOException;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/receipt")
+@RequestMapping(value = "/api/v1/test")
 @RequiredArgsConstructor
-public class ReceiptController {
-    private final ReceiptService receiptService;
-    @PostMapping()
-    public ResponseEntity<ApiResponse<ReceiptOcrDto>> receiptReview(
-            @RequestPart ReceiptReqDto receiptReqDto,
-            @RequestPart MultipartFile receiptPhotoFile
-//            , @RequestHeader String API_KEY
-            ) throws IOException {
+public class ClientController {
+    @GetMapping()
+    public ResponseEntity<ApiResponse<String>> receiptReview(
 
+    ) {
 
-        ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, receiptPhotoFile);
-
-        return ApiResponse.createSuccessWithOk(receipt);
+        return ApiResponse.createSuccessWithOk("");
     }
     // error 또는 영수증 정보 return , 영수증 정보 저장
 

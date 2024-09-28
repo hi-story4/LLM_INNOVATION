@@ -1,14 +1,13 @@
 package com.llm.receipt_review.server.domains.receipt.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,10 +15,12 @@ import java.util.List;
  */
 
 @Builder
-public record ReceiptOcrDto(@NotNull String store_name, String branch_name, @NotNull String store_phone_number,
-                            @NotNull String store_address, @NotNull String store_registration_number, @NotNull String payment_price,
-                            Timestamp transaction_date, @NotNull String approval_code,
-                            @NotNull String cc_code,
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+public record ReceiptOcrDto(@NotNull String storeName, String branchName, @NotNull String storePhoneNumber,
+                            @NotNull String storeAddress, @NotNull String storeRegistrationNumber, @NotNull String paymentPrice,
+                            //transaction_date는 인식률이 매우 떨어져서 제외.
+                            Timestamp transactionDate , @JsonIgnore @NotNull String approvalCode,
+                            @JsonIgnore @NotNull String ccCode,
                             @NotNull
                             List<ProductOcrDto> productList
                             ){

@@ -1,6 +1,6 @@
 package com.llm.receipt_review.server.domains.receipt.service.Upstage;
 
-import com.llm.receipt_review.server.constant.Response.CustomResponseStatus;
+import com.llm.receipt_review.server.constant.response.CustomResponseStatus;
 import com.llm.receipt_review.server.constant.exception.CustomException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -104,7 +104,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
                     }
                 }
         );
-        storeMap.put("productList", itemsMap);
+        storeMap.put("product_list", itemsMap);
         return storeMap;
     }
 

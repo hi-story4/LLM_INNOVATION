@@ -1,6 +1,6 @@
 package com.llm.receipt_review.server.constant.exception;
 
-import com.llm.receipt_review.server.constant.Response.CustomResponseStatus;
+import com.llm.receipt_review.server.constant.response.CustomResponseStatus;
 import lombok.Getter;
 
 @Getter

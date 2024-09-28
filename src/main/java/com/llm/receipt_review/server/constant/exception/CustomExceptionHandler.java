@@ -1,8 +1,8 @@
 package com.llm.receipt_review.server.constant.exception;
 
 
-import com.llm.receipt_review.server.constant.Response.ApiResponse;
-import com.llm.receipt_review.server.constant.Response.CustomResponseStatus;
+import com.llm.receipt_review.server.constant.response.ApiResponse;
+import com.llm.receipt_review.server.constant.response.CustomResponseStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

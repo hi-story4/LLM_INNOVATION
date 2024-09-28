@@ -9,8 +9,6 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class ReceiptReviewApplication {
 
-
-
     public static void main(String[] args) {
         SpringApplication.run(ReceiptReviewApplication.class, args);
 

@@ -1,40 +1,52 @@
 package com.llm.receipt_review.server.domains.receipt.entity;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.Timestamp;
 import java.util.List;
 
-@Document
+@Document(collection = "Receipt")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Builder
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Receipt {
 
-    private Long receiptId;
+    @Id
+    private String id;
 
-    private Long storeId;
+    @Indexed
+    private String storeId;
+
+    @Indexed
+    private String clientId;
 
     //store
     private String storeName;
-
     private String branchName;
-
-    private String phoneNumber;
-
+    private String storePhoneNumber;
     private String storeAddress;
-    private String businessNumber;
+    private String storeRegistrationNumber;
 
     //total
-    private String totalPrice;
+    private String paymentPrice;
 
     //transaction
-    private LocalDateTime dateTime;
+    private Timestamp transactionDate;
+
+    @Indexed
     private String approvalCode;
     private String ccCode; //카드사 정보 (비즈니스 활용)
 
-
+    private List<Product> productList;
 
 }

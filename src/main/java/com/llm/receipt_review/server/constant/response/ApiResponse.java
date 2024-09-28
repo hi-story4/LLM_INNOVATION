@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.constant.Response;
+package com.llm.receipt_review.server.constant.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
