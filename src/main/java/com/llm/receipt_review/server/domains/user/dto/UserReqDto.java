@@ -10,5 +10,5 @@ import java.util.List;
  * DTO for {@link com.llm.receipt_review.server.domains.user.entity.User}
  */
 public record UserReqDto(@NotNull String name, String description, String email, String phoneNumber,
-                         List<Role> roles, List<String> permissions) implements Serializable {
+                         List<Role> roles) implements Serializable {
 }

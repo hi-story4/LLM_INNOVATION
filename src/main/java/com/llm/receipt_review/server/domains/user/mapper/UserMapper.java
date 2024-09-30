@@ -13,7 +13,7 @@ public interface UserMapper {
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(target = "userStatus", ignore = true)
-    @Mapping(target = "clientId", ignore = true)
+    @Mapping(target = "id", ignore = true)
     User toUser(UserReqDto userReqDto, String clientApiKey);
 
     UserRespDto toDto(User user);

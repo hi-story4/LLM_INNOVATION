@@ -23,7 +23,7 @@ import java.util.List;
 public class User extends BaseDocument {
 
     @Id
-    private Long clientId;
+    private String id;
 
     @NotNull
     private String name;
@@ -39,9 +39,8 @@ public class User extends BaseDocument {
     @Enumerated(EnumType.STRING)
     private List<Role> roles;
 
-    private List<String> permissions;
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("'ACTIVATE'")
+    @ColumnDefault("ACTIVATE")
     private UserStatus userStatus;
 }

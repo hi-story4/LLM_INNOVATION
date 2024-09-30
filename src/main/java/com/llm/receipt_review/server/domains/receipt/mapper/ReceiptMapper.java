@@ -13,7 +13,7 @@ import java.util.List;
 public interface ReceiptMapper {
     ReceiptMapper INSTANCE = Mappers.getMapper(ReceiptMapper.class);
 
-    Receipt toReceipt(ReceiptOcrDto receiptOcrDto, Long storeId);
+    Receipt toReceipt(ReceiptOcrDto receiptOcrDto, String storeId);
 
     Product toProduct(ProductOcrDto productOcrDto);
     // List<ProductOcrDto> -> List<Product>로 변환하는 메서드 자동 생성

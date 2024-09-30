@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .exceptionHandling(configurer -> configurer.authenticationEntryPoint(unauthorizedHandler))
                 .securityMatcher("/api/v1")
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/api/v1/test/**").permitAll()
+                        .requestMatchers("/test/**").permitAll()
                         .requestMatchers(AntPathRequestMatcher.antMatcher("/user/signup"))
                         .permitAll()
                         .anyRequest().authenticated())

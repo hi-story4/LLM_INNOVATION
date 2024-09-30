@@ -28,11 +28,11 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.toUser(userReqDto, clientApiKey);
         log.info("User: " + user);
         User saveduser = userRepository.save(user);
-        log.info("Saved user: " + saveduser);
+        log.info("Saved user: " + saveduser.getId());
+
         return userMapper.toDto(saveduser);
 
     }
-
 
 
     private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe

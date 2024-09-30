@@ -29,9 +29,10 @@ public class UserPrincipalDetailsService implements UserDetailsService {
         if (cachedUser != null) {
             return new UserPrincipal(cachedUser);
         }
-        //2. Redis에 없으면 Mongo 조회후 업데이트
-        User user = userRepository.findByClientId(username).orElseThrow(() -> new UsernameNotFoundException("MongoDB : 유저를 찾을 수 없습니다. "));
-        redisTemplate.opsForValue().set(REDIS_PREFIX + user.getClientId(), user);
+        //2. Redis에 없으면 Mongo 조회후 업데이트 username == id(pk)
+        User user = userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("MongoDB : 유저를 찾을 수 없습니다. "));
+
+        redisTemplate.opsForValue().set(REDIS_PREFIX + username, user);
 
         return new UserPrincipal(user);
 
@@ -45,7 +46,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
         userRepository.save(user);
 
         // 2. Redis에도 업데이트 (동기화)
-        String cacheKey = REDIS_PREFIX + user.getClientId();
+        String cacheKey = REDIS_PREFIX + user.getId();
         redisTemplate.opsForValue().set(cacheKey, user);
     }
 

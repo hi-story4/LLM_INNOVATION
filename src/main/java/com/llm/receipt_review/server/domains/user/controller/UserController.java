@@ -7,6 +7,7 @@ import com.llm.receipt_review.server.domains.user.dto.UserReqDto;
 import com.llm.receipt_review.server.domains.user.dto.UserRespDto;
 import com.llm.receipt_review.server.domains.user.entity.User;
 import com.llm.receipt_review.server.domains.user.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -22,6 +23,15 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping
+    public ResponseEntity<ApiResponse<String>> testUserWithoutAuth(
+    ) {
+        log.info("UserController test");
+        return ApiResponse.createSuccessWithOk("success");
+    }
+    // error 또는 영수증 정보 return , 영수증 정보 저장
+
+
     @GetMapping("/test")
     public ResponseEntity<ApiResponse<String>> testUser(
 
@@ -32,7 +42,7 @@ public class UserController {
     // error 또는 영수증 정보 return , 영수증 정보 저장
 
     @PostMapping("/test/signup")
-    public ResponseEntity<ApiResponse<UserRespDto>> registerUser(@RequestBody UserReqDto userReqDto){
+    public ResponseEntity<ApiResponse<UserRespDto>> registerUser(@RequestBody @Valid UserReqDto userReqDto){
 
         UserRespDto user = userService.registUser(userReqDto);
 
