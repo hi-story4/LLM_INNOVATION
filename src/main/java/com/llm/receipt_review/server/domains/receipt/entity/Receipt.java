@@ -2,6 +2,7 @@ package com.llm.receipt_review.server.domains.receipt.entity;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.llm.receipt_review.server.domains.BaseDocument;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 @Getter
 @Builder
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
-public class Receipt {
+public class Receipt extends BaseDocument {
 
     @Id
     private String id;

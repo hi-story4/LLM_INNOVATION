@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.security;
+package com.llm.receipt_review.server.security.filter;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

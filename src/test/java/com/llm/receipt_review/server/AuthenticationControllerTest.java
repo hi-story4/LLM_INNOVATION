@@ -1,5 +1,6 @@
 package com.llm.receipt_review.server;
 
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +21,10 @@ public class AuthenticationControllerTest {
     void getAuthError() throws Exception {
         this.mockMvc.perform(get("/api/v1/test"))
                 .andExpect(status().is4xxClientError());
+    }
+    @Test
+    void test() throws Exception {
+
     }
 
 

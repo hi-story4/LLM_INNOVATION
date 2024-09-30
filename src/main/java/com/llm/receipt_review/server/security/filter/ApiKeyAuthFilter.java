@@ -1,5 +1,6 @@
-package com.llm.receipt_review.server.security;
+package com.llm.receipt_review.server.security.filter;
 
+import com.llm.receipt_review.server.security.service.ApiKeyAuthExtractor;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
