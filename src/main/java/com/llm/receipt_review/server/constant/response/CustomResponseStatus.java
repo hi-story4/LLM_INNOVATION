@@ -18,6 +18,7 @@ public enum CustomResponseStatus {
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6000", "내부 서버 오류입니다."),
     RECEIPT_OCR_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(),"6001", "영수증 OCR 인식에 실패했습니다."),
     MAPPING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6002", "객체 매핑에 실패했습니다"),
+    SAVED_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6003", "데이터 저장에 실패했습니다."),
 
 //    7000
     INVALID_ERROR(HttpStatus.BAD_REQUEST.value(), "7000", "유효하지 않은 데이터입니다."),

@@ -8,5 +8,5 @@ import java.io.IOException;
 
 public interface ReceiptService {
 
-    ReceiptOcrDto registReceipt(ReceiptReqDto receiptReqDto, MultipartFile receiptPhotoFile) throws IOException;
+    ReceiptOcrDto registReceipt(ReceiptReqDto receiptReqDto, String clientId, MultipartFile receiptPhotoFile) throws IOException;
 }

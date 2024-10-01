@@ -40,11 +40,10 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(AbstractHttpConfigurer::disable)
                 .exceptionHandling(configurer -> configurer.authenticationEntryPoint(unauthorizedHandler))
-                .securityMatcher("/api/v1")
+                .securityMatcher("/api/v1/**")
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/test/**").permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher("/user/signup"))
-                        .permitAll()
+                        .requestMatchers("/api/v1/test/**").permitAll()
+                        .requestMatchers("/api/v1/receipt").hasAnyRole("ADMIN", "CLIENT")
                         .anyRequest().authenticated())
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

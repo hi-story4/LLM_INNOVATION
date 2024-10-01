@@ -29,45 +29,41 @@ public class ReceiptServiceImpl implements ReceiptService {
     private final ReceiptMapper receiptMapper;
 
     @Transactional
-    public ReceiptOcrDto registReceipt(ReceiptReqDto receiptReqDto, MultipartFile receiptPhotoFile) throws IOException {
+    public ReceiptOcrDto registReceipt(ReceiptReqDto receiptReqDto, String clientId, MultipartFile receiptPhotoFile) throws IOException {
 
         Map<String, Object> receiptMap = upstageApiService.apiReceiptOcr(receiptPhotoFile);
         ReceiptOcrDto receiptOcrDto = objectMapper.convertValue(receiptMap, ReceiptOcrDto.class);
         log.info("성공적 Mapping: " + receiptOcrDto.toString());
 
+
         boolean receiptValidation = validateReceipt(receiptReqDto, receiptOcrDto);
-        Receipt receipt = receiptMapper.toReceipt(receiptOcrDto, receiptReqDto.storeId());
+        Receipt receipt = receiptMapper.toReceipt(receiptOcrDto, receiptReqDto.storeId(), clientId);
+        Receipt savedReceipt = null;
 
-        if(receipt.getStoreName() != null){
-            log.info("MapStruct: " + receipt.getStoreName());
-
-            if(receiptValidation){
-                Receipt savedReceipt= receiptRepository.save(receipt);
-                log.info("Receipt saved Successfully");
-                log.info(savedReceipt.getStoreName());
-            }
+        if (receipt.getStoreName() != null && receiptValidation) {
+             savedReceipt = receiptRepository.save(receipt);
+            log.info("Receipt saved Successfully");
+        } else {
+            log.error("Map Struct Error for DTO to Entity : " + receiptOcrDto);
         }
-        else{
-            log.error("Map Struct Error for DTO to Entity : "+ receiptOcrDto);
-        }
+        //Saved Error가 나더라도 영수증 리뷰 기능에는 문제가 없으므로 Error가 아닌 log로 기록만 남기고 정상 작동
 
-        return receiptOcrDto;
+        return savedReceipt!=null ? receiptMapper.toDto(savedReceipt) : receiptOcrDto;
+
     }
 
 
-
-
     //검증 로직.
-    private boolean validateReceipt(ReceiptReqDto req, ReceiptOcrDto receiptOcrDto){
+    private boolean validateReceipt(ReceiptReqDto req, ReceiptOcrDto receiptOcrDto) {
 
         if (!validApprovalCode(receiptOcrDto.approvalCode())) {
             throw new CustomException(CustomResponseStatus.REDUNDANT_RECEIPT);
         }
 
         //Req에 사업자번호 데이터 존재하는 경우에만 검증
-        if(req.storeRegistrationNumber() != null && !req.storeRegistrationNumber().isEmpty()){
+        if (req.storeRegistrationNumber() != null && !req.storeRegistrationNumber().isEmpty()) {
             log.info("사업자번호 쿼리에 존재");
-            if(!isEqualRegNum(receiptOcrDto.storeRegistrationNumber(), req.storeRegistrationNumber())){
+            if (!isEqualRegNum(receiptOcrDto.storeRegistrationNumber(), req.storeRegistrationNumber())) {
                 throw new CustomException(CustomResponseStatus.STORE_MATCH_ERROR);
             }
         }
@@ -75,17 +71,17 @@ public class ReceiptServiceImpl implements ReceiptService {
         return true;
     }
 
-    private boolean validApprovalCode(String approvalCode){
+    private boolean validApprovalCode(String approvalCode) {
 
         return !receiptRepository.existsByApprovalCode(approvalCode);
         //동일 승인번호가 없어야 Valid 하다.
 
     }
-    private boolean isEqualRegNum(String regNumOcr, String regNumData){
+
+    private boolean isEqualRegNum(String regNumOcr, String regNumData) {
 
         return regNumOcr.equals(regNumData);
     }
-
 
 
 }

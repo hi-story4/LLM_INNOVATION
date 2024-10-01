@@ -7,6 +7,8 @@ import com.llm.receipt_review.server.domains.receipt.dto.ReceiptReqDto;
 import com.llm.receipt_review.server.domains.receipt.service.ReceiptService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,12 +23,13 @@ public class ReceiptController {
     @PostMapping()
     public ResponseEntity<ApiResponse<ReceiptOcrDto>> receiptReview(
             @RequestPart ReceiptReqDto receiptReqDto,
-            @RequestPart MultipartFile receiptPhotoFile
-//            , @RequestHeader String API_KEY
+            @RequestPart MultipartFile receiptPhotoFile,
+            @AuthenticationPrincipal UserDetails userDetails
             ) throws IOException {
 
 
-        ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, receiptPhotoFile);
+        ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, userDetails.getUsername() ,receiptPhotoFile);
+
 
         return ApiResponse.createSuccessWithOk(receipt);
     }

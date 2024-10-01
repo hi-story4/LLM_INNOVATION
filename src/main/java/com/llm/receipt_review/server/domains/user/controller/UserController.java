@@ -32,16 +32,7 @@ public class UserController {
     // error 또는 영수증 정보 return , 영수증 정보 저장
 
 
-    @GetMapping("/test")
-    public ResponseEntity<ApiResponse<String>> testUser(
-
-    ) {
-        log.info("UserController test");
-        return ApiResponse.createSuccessWithOk("success");
-    }
-    // error 또는 영수증 정보 return , 영수증 정보 저장
-
-    @PostMapping("/test/signup")
+    @PostMapping("/admin/signup")
     public ResponseEntity<ApiResponse<UserRespDto>> registerUser(@RequestBody @Valid UserReqDto userReqDto){
 
         UserRespDto user = userService.registUser(userReqDto);
