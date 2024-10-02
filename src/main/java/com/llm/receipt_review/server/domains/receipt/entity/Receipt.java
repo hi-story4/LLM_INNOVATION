@@ -2,7 +2,7 @@ package com.llm.receipt_review.server.domains.receipt.entity;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.llm.receipt_review.server.domains.BaseDocument;
+import com.llm.receipt_review.server.constant.Entity.BaseDocument;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

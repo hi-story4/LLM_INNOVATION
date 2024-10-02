@@ -10,9 +10,9 @@ public enum CustomResponseStatus {
     SUCCESS(HttpStatus.OK.value(), "1000", "요청에 성공하였습니다."),
 
 //    2000
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "2000", "잘못된 토큰입니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED.value(), "2000", "잘못된 API 인증 입니다."),
 //4000
-    NULL_TOKEN(HttpStatus.NO_CONTENT.value(), "4000", "토큰이 공백입니다."),
+    NULL_TOKEN(HttpStatus.NO_CONTENT.value(), "4000", "인증 Key 값이 공백입니다."),
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "4001", "해당 유저를 찾을 수 없습니다."),
 //    6000
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR.value(), "6000", "내부 서버 오류입니다."),

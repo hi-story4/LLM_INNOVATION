@@ -5,6 +5,7 @@ import com.llm.receipt_review.server.constant.response.ApiResponse;
 import com.llm.receipt_review.server.domains.receipt.dto.ReceiptOcrDto;
 import com.llm.receipt_review.server.domains.receipt.dto.ReceiptReqDto;
 import com.llm.receipt_review.server.domains.receipt.service.ReceiptService;
+import com.llm.receipt_review.server.security.user.UserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,11 +25,10 @@ public class ReceiptController {
     public ResponseEntity<ApiResponse<ReceiptOcrDto>> receiptReview(
             @RequestPart ReceiptReqDto receiptReqDto,
             @RequestPart MultipartFile receiptPhotoFile,
-            @AuthenticationPrincipal UserDetails userDetails
+            @AuthenticationPrincipal(errorOnInvalidType = true) UserPrincipal userPrincipal
             ) throws IOException {
 
-
-        ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, userDetails.getUsername() ,receiptPhotoFile);
+        ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, userPrincipal.getUsername() ,receiptPhotoFile);
 
 
         return ApiResponse.createSuccessWithOk(receipt);

@@ -1,17 +1,19 @@
 package com.llm.receipt_review.server.security.filter;
 
+import com.llm.receipt_review.server.security.user.UserPrincipal;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.security.Principal;
 import java.util.Collection;
 
 public class ApiKeyAuth extends AbstractAuthenticationToken {
 
-    private final String apiKey;
+    private final UserPrincipal principal;
 
-    public ApiKeyAuth(String apiKey, Collection<? extends GrantedAuthority> authorities) {
+    public ApiKeyAuth(UserPrincipal principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
-        this.apiKey = apiKey;
+        this.principal = principal;
         setAuthenticated(true);
     }
 
@@ -22,7 +24,7 @@ public class ApiKeyAuth extends AbstractAuthenticationToken {
 
     @Override
     public Object getPrincipal() {
-        return apiKey;
+        return principal;
     }
 
 }

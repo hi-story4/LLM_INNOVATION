@@ -22,20 +22,20 @@ public class UserPrincipalDetailsService implements UserDetailsService {
     private static final String REDIS_PREFIX = "user_key_";
 
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserPrincipal loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // 1. 캐시에서 데이터 조회
         User cachedUser = (User) redisTemplate.opsForValue().get(REDIS_PREFIX + username);
         if (cachedUser != null) {
+            log.info("User cached: " + cachedUser.getClass());
             return new UserPrincipal(cachedUser);
         }
         //2. Redis에 없으면 Mongo 조회후 업데이트 username == id(pk)
         User user = userRepository.findById(username).orElseThrow(() -> new UsernameNotFoundException("MongoDB : 유저를 찾을 수 없습니다. "));
 
         redisTemplate.opsForValue().set(REDIS_PREFIX + username, user);
-
+        log.info("User in MongoDB : " + user.getClass());
         return new UserPrincipal(user);
-
     }
     public void storeUser(String clientId, User user){
         redisTemplate.opsForValue().set(REDIS_PREFIX + clientId, user);

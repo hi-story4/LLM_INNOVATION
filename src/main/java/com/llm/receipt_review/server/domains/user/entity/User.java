@@ -1,7 +1,7 @@
 package com.llm.receipt_review.server.domains.user.entity;
 
 
-import com.llm.receipt_review.server.domains.BaseDocument;
+import com.llm.receipt_review.server.constant.Entity.BaseDocument;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;

@@ -2,7 +2,7 @@ package com.llm.receipt_review.server.config;
 
 import com.llm.receipt_review.server.security.user.UserPrincipalDetailsService;
 import com.llm.receipt_review.server.security.filter.ApiKeyAuthFilter;
-import com.llm.receipt_review.server.security.filter.UnauthorizedHandler;
+import com.llm.receipt_review.server.security.handler.UnauthorizedHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity

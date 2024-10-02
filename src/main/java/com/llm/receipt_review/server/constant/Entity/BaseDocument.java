@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.domains;
+package com.llm.receipt_review.server.constant.Entity;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

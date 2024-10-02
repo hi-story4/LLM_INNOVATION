@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.security.filter;
+package com.llm.receipt_review.server.security.handler;
 
 
 import jakarta.servlet.http.HttpServletRequest;
