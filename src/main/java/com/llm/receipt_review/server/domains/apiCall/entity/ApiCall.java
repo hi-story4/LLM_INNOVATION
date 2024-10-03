@@ -1,10 +1,8 @@
 package com.llm.receipt_review.server.domains.apiCall.entity;
 
 import com.llm.receipt_review.server.constant.Entity.BaseDocument;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -25,9 +23,10 @@ public class ApiCall extends BaseDocument {
 
 
     public static ApiCall toEntity(String key, Object value) {
-        String keyValue = key.replaceFirst("prefix_", "");
+
+
         return ApiCall.builder()
-                .clientId(keyValue)
+                .clientId(key)
                 .apiCallCount(Long.parseLong(value.toString()))
                 .build();
     }

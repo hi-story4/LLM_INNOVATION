@@ -21,11 +21,12 @@ public class ApiCallServiceImpl implements ApiCallService {
     @Value("${app.prefix.api-call-count}")
     private String REDIS_PREFIX_API_COUNT;
 
+
     private final RedisTemplate redisTemplate;
     private final ApiCallRepository apiCallRepository;
 
 
-    @Scheduled(fixedRate = 3600000) //1시간마다
+    @Scheduled(cron = "0 0 */1 * * *")  // 매 정각
     public void apiCallCountBackup(){
         //prefix로 키 가져오기
         Set<String> keys = redisTemplate.keys(REDIS_PREFIX_API_COUNT + "*");
@@ -35,12 +36,15 @@ public class ApiCallServiceImpl implements ApiCallService {
         if (keys != null) {
             for(String key : keys) {
                 Object value = redisTemplate.opsForValue().get(key);
-                clientIdAndCount.add(ApiCall.toEntity(key, value));
+                String replacedKey = key.replaceFirst(REDIS_PREFIX_API_COUNT, "");
+                clientIdAndCount.add(ApiCall.toEntity(replacedKey, value));
             }
             apiCallRepository.saveAll(clientIdAndCount);
         }
 
     }
+
+    // Interceptor 에서 실행
     public void incrApiCallCount(String clientId) {
         redisTemplate.opsForValue().increment(REDIS_PREFIX_API_COUNT + clientId);
     }

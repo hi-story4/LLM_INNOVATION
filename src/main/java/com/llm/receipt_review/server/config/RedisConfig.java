@@ -19,6 +19,7 @@ public class RedisConfig {
     @Value("${spring.data.redis.host}")
     public String host;
 
+
     // TCP 통신
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
