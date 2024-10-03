@@ -2,6 +2,7 @@ package com.llm.receipt_review.server.domains.receipt.service.Upstage;
 
 import com.llm.receipt_review.server.constant.response.CustomResponseStatus;
 import com.llm.receipt_review.server.constant.exception.CustomException;
+import com.llm.receipt_review.server.domains.receipt.dto.ReceiptOcrDto;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.llm.receipt_review.server.constant.util.JascksonUtil.objectMapper;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -31,7 +34,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
     private static final String TYPE = "type";
     private static final String GROUP_0 = "group_0";
 
-    public Map<String, Object> apiReceiptOcr(MultipartFile receiptPhoto) throws IOException {
+    public ReceiptOcrDto apiReceiptOcr(MultipartFile receiptPhoto) throws IOException {
 
         BodyInserters.MultipartInserter multiPartFile = getMultiPartFile(receiptPhoto);
 
@@ -53,7 +56,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
                     }));
 
             log.info("Upstage 리턴값: " + mapMono.block());
-            return mapMono.block();
+            return objectMapper.convertValue(mapMono.block(), ReceiptOcrDto.class);
 
         } catch (Exception e) {
             log.info("error in Upstage : " + e);

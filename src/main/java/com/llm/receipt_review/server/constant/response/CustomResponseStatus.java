@@ -23,8 +23,8 @@ public enum CustomResponseStatus {
 //    7000
     INVALID_ERROR(HttpStatus.BAD_REQUEST.value(), "7000", "유효하지 않은 데이터입니다."),
     REDUNDANT_RECEIPT(HttpStatus.BAD_REQUEST.value(), "7001", "이미 등록된 영수증입니다."),
-    STORE_MATCH_ERROR(HttpStatus.BAD_REQUEST.value(), "7002", "해당 가게의 영수증이 아닙니다.");
-
+    STORE_MATCH_ERROR(HttpStatus.BAD_REQUEST.value(), "7002", "해당 가게의 영수증이 아닙니다."),
+    INVALID_RECEIPT(HttpStatus.BAD_REQUEST.value(), "7003", "유효한 영수증이 아닙니다.");
 
 
 

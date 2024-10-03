@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Map;
 
-import static com.llm.receipt_review.server.constant.util.JascksonUtil.objectMapper;
 
 @Service
 @RequiredArgsConstructor
@@ -31,14 +29,14 @@ public class ReceiptServiceImpl implements ReceiptService {
     @Transactional
     public ReceiptOcrDto registReceipt(ReceiptReqDto receiptReqDto, String clientId, MultipartFile receiptPhotoFile) throws IOException {
 
-        Map<String, Object> receiptMap = upstageApiService.apiReceiptOcr(receiptPhotoFile);
-        ReceiptOcrDto receiptOcrDto = objectMapper.convertValue(receiptMap, ReceiptOcrDto.class);
-
+        ReceiptOcrDto receiptOcrDto = upstageApiService.apiReceiptOcr(receiptPhotoFile);
 
         boolean receiptValidation = validateReceipt(receiptReqDto, receiptOcrDto);
+
         Receipt receipt = receiptMapper.toReceipt(receiptOcrDto, receiptReqDto.storeId(), clientId);
         Receipt savedReceipt = null;
-        try{
+
+        try {
             if (receipt.getStoreName() != null && receiptValidation) {
                 savedReceipt = receiptRepository.save(receipt);
                 log.info("Receipt saved Successfully");
@@ -46,13 +44,12 @@ public class ReceiptServiceImpl implements ReceiptService {
                 log.error("Map Struct Error for DTO to Entity : " + receiptOcrDto);
             }
             //Saved Error가 나더라도 영수증 리뷰 기능에는 문제가 없으므로 Error가 아닌 log로 기록만 남기고 정상 작동
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new CustomException(CustomResponseStatus.REDUNDANT_RECEIPT);
         }
 
 
-        return savedReceipt!=null ? receiptMapper.toDto(savedReceipt) : receiptOcrDto;
+        return savedReceipt != null ? receiptMapper.toDto(savedReceipt) : receiptOcrDto;
 
     }
 
@@ -67,13 +64,12 @@ public class ReceiptServiceImpl implements ReceiptService {
                 throw new CustomException(CustomResponseStatus.STORE_MATCH_ERROR);
             }
         }
+        if(receiptOcrDto.approvalCode() == null)
+            throw new CustomException(CustomResponseStatus.INVALID_RECEIPT);
 
         return true;
     }
-
-
     private boolean isEqualRegNum(String regNumOcr, String regNumData) {
-
         return regNumOcr.equals(regNumData);
     }
 
