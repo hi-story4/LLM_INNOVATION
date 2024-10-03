@@ -64,10 +64,15 @@ public class CustomExceptionHandler {
                 .body(ApiResponse.createError(e.getCustomResponseStatus()));
     }
 
+
+
     private String getStackTraceAsString(Throwable e) {
         StringWriter stringWriter = new StringWriter();
         PrintWriter printWriter = new PrintWriter(stringWriter);
         e.printStackTrace(printWriter);
         return stringWriter.toString();
     }
+
+
+
 }

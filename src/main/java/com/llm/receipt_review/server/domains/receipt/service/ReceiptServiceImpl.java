@@ -2,10 +2,10 @@ package com.llm.receipt_review.server.domains.receipt.service;
 
 import com.llm.receipt_review.server.constant.exception.CustomException;
 import com.llm.receipt_review.server.constant.response.CustomResponseStatus;
-import com.llm.receipt_review.server.domains.receipt.mapper.ReceiptMapper;
 import com.llm.receipt_review.server.domains.receipt.dto.ReceiptOcrDto;
 import com.llm.receipt_review.server.domains.receipt.dto.ReceiptReqDto;
 import com.llm.receipt_review.server.domains.receipt.entity.Receipt;
+import com.llm.receipt_review.server.domains.receipt.mapper.ReceiptMapper;
 import com.llm.receipt_review.server.domains.receipt.repository.ReceiptRepository;
 import com.llm.receipt_review.server.domains.receipt.service.Upstage.UpstageApiService;
 import jakarta.transaction.Transactional;
@@ -38,14 +38,19 @@ public class ReceiptServiceImpl implements ReceiptService {
         boolean receiptValidation = validateReceipt(receiptReqDto, receiptOcrDto);
         Receipt receipt = receiptMapper.toReceipt(receiptOcrDto, receiptReqDto.storeId(), clientId);
         Receipt savedReceipt = null;
-
-        if (receipt.getStoreName() != null && receiptValidation) {
-             savedReceipt = receiptRepository.save(receipt);
-            log.info("Receipt saved Successfully");
-        } else {
-            log.error("Map Struct Error for DTO to Entity : " + receiptOcrDto);
+        try{
+            if (receipt.getStoreName() != null && receiptValidation) {
+                savedReceipt = receiptRepository.save(receipt);
+                log.info("Receipt saved Successfully");
+            } else {
+                log.error("Map Struct Error for DTO to Entity : " + receiptOcrDto);
+            }
+            //Saved Error가 나더라도 영수증 리뷰 기능에는 문제가 없으므로 Error가 아닌 log로 기록만 남기고 정상 작동
         }
-        //Saved Error가 나더라도 영수증 리뷰 기능에는 문제가 없으므로 Error가 아닌 log로 기록만 남기고 정상 작동
+        catch (Exception e) {
+            throw new CustomException(CustomResponseStatus.REDUNDANT_RECEIPT);
+        }
+
 
         return savedReceipt!=null ? receiptMapper.toDto(savedReceipt) : receiptOcrDto;
 
@@ -54,10 +59,6 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     //검증 로직.
     private boolean validateReceipt(ReceiptReqDto req, ReceiptOcrDto receiptOcrDto) {
-
-        if (!validApprovalCode(receiptOcrDto.approvalCode())) {
-            throw new CustomException(CustomResponseStatus.REDUNDANT_RECEIPT);
-        }
 
         //Req에 사업자번호 데이터 존재하는 경우에만 검증
         if (req.storeRegistrationNumber() != null && !req.storeRegistrationNumber().isEmpty()) {
@@ -70,12 +71,6 @@ public class ReceiptServiceImpl implements ReceiptService {
         return true;
     }
 
-    private boolean validApprovalCode(String approvalCode) {
-
-        return !receiptRepository.existsByApprovalCode(approvalCode);
-        //동일 승인번호가 없어야 Valid 하다.
-
-    }
 
     private boolean isEqualRegNum(String regNumOcr, String regNumData) {
 

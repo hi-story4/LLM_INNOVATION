@@ -44,8 +44,9 @@ public class Receipt extends BaseDocument {
     //transaction
     private Timestamp transactionDate;
 
-    @Indexed
+    @Indexed(unique = true)
     private String approvalCode;
+
     private String ccCode; //카드사 정보 (비즈니스 활용)
 
     private List<Product> productList;

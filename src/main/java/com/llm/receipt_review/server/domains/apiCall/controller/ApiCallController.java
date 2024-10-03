@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/call")
+@RequestMapping(value = "/api/v1/admin/call")
 public class ApiCallController {
 
     private final ApiCallService apiCallService;

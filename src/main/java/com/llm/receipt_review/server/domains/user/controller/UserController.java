@@ -23,13 +23,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<String>> testUserWithoutAuth(
-    ) {
-        log.info("UserController test");
-        return ApiResponse.createSuccessWithOk("success");
-    }
-    // error 또는 영수증 정보 return , 영수증 정보 저장
 
 
     @PostMapping("/admin/signup")

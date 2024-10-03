@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-@Document
+@Document(collection = "User")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -33,6 +33,7 @@ public class User extends BaseDocument {
     private String email;
 
     private String phoneNumber;
+
 
     private String clientApiKey;
 
