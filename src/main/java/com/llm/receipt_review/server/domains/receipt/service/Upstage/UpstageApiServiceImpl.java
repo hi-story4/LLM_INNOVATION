@@ -28,7 +28,6 @@ public class UpstageApiServiceImpl implements UpstageApiService {
     private final WebClient webClient;
     private static final String MODEL_NAME = "receipt-extraction";
     private static final String CONTENT = "content";
-    private static final String GROUP = "groupt";
     private static final String TYPE = "type";
     private static final String GROUP_0 = "group_0";
 
@@ -36,7 +35,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
 
         BodyInserters.MultipartInserter multiPartFile = getMultiPartFile(receiptPhoto);
 
-        log.info("웹 api 서비스 요청 시작");
+        log.info("Upstage api 서비스 요청 시작");
 
         try {
             Mono<Map> mapMono = Mono.from(webClient.post()
@@ -45,6 +44,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
                     .body(multiPartFile)
                     .retrieve()
                     .bodyToMono(Map.class)
+                    .retry(3)
                     .flatMap(map -> {
                         log.info("전체 원본 데이터: " + map);
                         List<Map<String, Object>> fields = (List<Map<String, Object>>) map.get("fields");
@@ -69,6 +69,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
         return BodyInserters.fromMultipartData(builder.build());
     }
 
+
     private Map<String, Object> getContentFromListMapFields(List<Map<String, Object>> fields) {
         List<Map<String, String>> itemsMap = new ArrayList<>();
         Map<String, Object> storeMap = new HashMap<>();
@@ -90,7 +91,7 @@ public class UpstageApiServiceImpl implements UpstageApiService {
                             }
                         });
                         //각 item 이 저장되면, List 에 저장 , -> header인 값
-                        if(!savedItemMap.isEmpty()){
+                        if (!savedItemMap.isEmpty()) {
                             itemsMap.add(savedItemMap);
                         }
 

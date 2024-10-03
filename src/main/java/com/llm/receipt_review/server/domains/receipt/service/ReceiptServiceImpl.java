@@ -33,7 +33,6 @@ public class ReceiptServiceImpl implements ReceiptService {
 
         Map<String, Object> receiptMap = upstageApiService.apiReceiptOcr(receiptPhotoFile);
         ReceiptOcrDto receiptOcrDto = objectMapper.convertValue(receiptMap, ReceiptOcrDto.class);
-        log.info("성공적 Mapping: " + receiptOcrDto.toString());
 
 
         boolean receiptValidation = validateReceipt(receiptReqDto, receiptOcrDto);
