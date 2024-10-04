@@ -2,7 +2,6 @@ package com.llm.receipt_review.server.domains.apiCall.entity;
 
 import com.llm.receipt_review.server.constant.Entity.BaseDocument;
 import lombok.*;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -14,10 +14,6 @@ import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Builder
-public record ProductOcrDto(@NotNull(message = "product name이 필요.") String productName, @NotNull String unitProductPrice,
+public record ProductOcrDto(@NotNull String productName, @NotNull String unitProductPrice,
                             @NotNull String unitProductQuantity) {
 }
-//@JsonInclude(JsonInclude.Include.NON_EMPTY)
-//public record ProductOcrDto(@NotNull(message = "product name이 필요.") String product_name, @NotNull String unit_product_price,
-//                            @NotNull String unit_product_quantity) {
-//}

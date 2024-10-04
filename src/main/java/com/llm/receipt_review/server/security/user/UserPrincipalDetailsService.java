@@ -27,7 +27,7 @@ public class UserPrincipalDetailsService implements UserDetailsService {
         // 1. 캐시에서 데이터 조회
         User cachedUser = (User) redisTemplate.opsForValue().get(REDIS_PREFIX + username);
         if (cachedUser != null) {
-            log.info("User cached: " + cachedUser.getClass());
+            log.info("Get cached User in Redis: " + cachedUser.getClass());
             return new UserPrincipal(cachedUser);
         }
         //2. Redis에 없으면 Mongo 조회후 업데이트 username == id(pk)

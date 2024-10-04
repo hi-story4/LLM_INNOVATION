@@ -40,8 +40,10 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getId();
+        return this.user.getName();
     }
+
+    public String getClientId(){return this.user.getId();}
 
     @Override
     public boolean isAccountNonExpired() {

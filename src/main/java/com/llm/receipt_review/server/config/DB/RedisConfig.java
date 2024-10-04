@@ -1,4 +1,4 @@
-package com.llm.receipt_review.server.config;
+package com.llm.receipt_review.server.config.DB;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
