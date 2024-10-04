@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -62,6 +63,13 @@ public class CustomExceptionHandler {
         log.error("[ERROR] : {}\n{}", e.getMessage(), stackTrace);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.createError(e.getCustomResponseStatus()));
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<ApiResponse<String>> handleMissingPart(MissingServletRequestPartException exception){
+        return ResponseEntity.status(HttpStatus. BAD_REQUEST)
+                .body(ApiResponse.createError(CustomResponseStatus.NO_MULITIPART_ERROR));
+
     }
 
 

@@ -53,6 +53,12 @@ public class ReceiptServiceImpl implements ReceiptService {
 
     }
 
+    @Transactional
+    public ReceiptOcrDto getReceipt(String receiptId, String clientId){
+
+        return receiptMapper.toDto(receiptRepository.findByIdAndClientId(receiptId, clientId).orElseThrow(() -> new CustomException(CustomResponseStatus.RECEIPT_NOT_FOUND)));
+    }
+
 
     //검증 로직.
     private boolean validateReceipt(ReceiptReqDto req, ReceiptOcrDto receiptOcrDto) {

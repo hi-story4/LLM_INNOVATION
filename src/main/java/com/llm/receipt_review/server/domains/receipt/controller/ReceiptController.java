@@ -27,8 +27,19 @@ public class ReceiptController {
             @AuthenticationPrincipal(errorOnInvalidType = true) UserPrincipal userPrincipal
             ) throws IOException {
 
+
         ReceiptOcrDto receipt =  receiptService.registReceipt(receiptReqDto, userPrincipal.getClientId() ,receiptPhotoFile);
 
+
+        return ApiResponse.createSuccessWithOk(receipt);
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<ReceiptOcrDto>> getReceipt(
+            @RequestHeader String receiptId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ){
+        ReceiptOcrDto receipt = receiptService.getReceipt(receiptId, userPrincipal.getClientId());
 
         return ApiResponse.createSuccessWithOk(receipt);
     }
