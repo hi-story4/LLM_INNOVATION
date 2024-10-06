@@ -19,7 +19,7 @@ public record ReceiptOcrDto(@NotNull String id, String storeId,
         @NotNull String storeName, String branchName, @NotNull String storePhoneNumber,
                             @NotNull String storeAddress, @NotNull String storeRegistrationNumber, @NotNull String paymentPrice,
                             //transaction_date는 인식률이 매우 떨어져서 제외.
-                            Timestamp transactionDate , @JsonIgnore @NotNull String approvalCode,
+                            String transactionDate , @JsonIgnore @NotNull String approvalCode,
                             @JsonIgnore @NotNull String ccCode,
                             @NotNull
                             List<ProductOcrDto> productList

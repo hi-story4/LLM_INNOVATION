@@ -42,7 +42,7 @@ public class Receipt extends BaseDocument {
     private String paymentPrice;
 
     //transaction
-    private Timestamp transactionDate;
+    private String transactionDate;
 
     @Indexed(unique = true)
     private String approvalCode;
