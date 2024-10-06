@@ -2,6 +2,7 @@ package com.llm.receipt_review.server.domains.user.entity;
 
 
 import com.llm.receipt_review.server.constant.Entity.BaseDocument;
+import com.llm.receipt_review.server.constant.Entity.BaseStatus;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
@@ -42,6 +43,6 @@ public class User extends BaseDocument {
 
 
     @Enumerated(EnumType.STRING)
-    @ColumnDefault("ACTIVATE")
-    private UserStatus userStatus;
+    @Builder.Default
+    private UserStatus userStatus= UserStatus.ACTIVATE;
 }
