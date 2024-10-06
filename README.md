@@ -14,8 +14,8 @@
 영수증 리뷰 시스템을 도입하고자 하는 **스타트업 개발자**를 핵심 타겟으로 하고 나아가 인터페이스를 고도화, 컴포넌트 개발을 통해 노코드 플랫폼인 **아임웹, 카페24** 등을 통해 자사몰을 운영중인 분들을 대상으로 서비스를 제공할 예정입니다. 
 
 ## 구조
+<img width="786" alt="image" src="https://github.com/user-attachments/assets/4fab60a5-de8f-4057-a873-cc93be3db74b">
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/60af02e3-3960-4ce1-bd3b-784de6473de2/ff1e42fc-6dd1-4652-80b3-429709c7388f/image.png)
 
 # 설치 방법
 
@@ -94,10 +94,11 @@ http://localhost:8080/swagger-ui/index.html#/
 `영수증 OCR` API를 이용하여http://localhost:8080/api/v1/receipt  에 
 
 Auth (API Key 방식) 헤더에 X-API-KEY 를 key 값으로, 실제 ClientApiKey값을 value 로 넣고 
+<img width="838" alt="image" src="https://github.com/user-attachments/assets/2c470d81-4c32-4c70-a9fa-0d33b3edb3dc">
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/60af02e3-3960-4ce1-bd3b-784de6473de2/4959f086-6e3d-46ca-8df2-6861ae770fb9/image.png)
+<img width="634" alt="image" src="https://github.com/user-attachments/assets/c6060597-4954-4079-9dc6-ce54af40586c">
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/60af02e3-3960-4ce1-bd3b-784de6473de2/c61f041a-01b9-46bd-a6ff-f13ca40a8a53/image.png)
+
 
 사진과 RequestBody는  form-data로 다음과 같이 입력해서 요청을 보내면 됩니다. 
 
@@ -106,15 +107,17 @@ Auth (API Key 방식) 헤더에 X-API-KEY 를 key 값으로, 실제 ClientApiKey
 > 포스트맨 상에 사진이 있더라도 시간이 지나면 이름만 남고 실제 파일은 안보내지기 때문에 사진 파일은 꼭 다시 넣어줘야합니다.
 > 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/60af02e3-3960-4ce1-bd3b-784de6473de2/ebff532a-429f-4307-b195-ac50a2c84741/image.png)
+<img width="634" alt="image" src="https://github.com/user-attachments/assets/9dfc6823-0737-4b7e-9eae-285165c9927b">
+
 
 workspace에서 우측 상단 환경변수 lim env가 잘 설정되어있는지 확인해 주세요
 
 환경변수 설정이 잘 되어있어야 Auth와 header에서 client-id, client-key 가 잘들어갑니다. 
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/60af02e3-3960-4ce1-bd3b-784de6473de2/482a57f8-bb49-41a2-9d10-23fce8d8d8b2/image.png)
+<img width="640" alt="image" src="https://github.com/user-attachments/assets/0a20410b-5780-4d38-bc88-5aa1a606cf17">
 
 만약을 위해서 cliend-id, client-key , admin-id, admin-key 값도 따로 첨부하겠습니다. 
+
 
 # LLM 활용
 
