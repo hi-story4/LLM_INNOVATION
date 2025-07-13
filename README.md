@@ -13,8 +13,19 @@
 
 영수증 리뷰 시스템을 도입하고자 하는 **스타트업 개발자**를 핵심 타겟으로 하고 나아가 인터페이스를 고도화, 컴포넌트 개발을 통해 노코드 플랫폼인 **아임웹, 카페24** 등을 통해 자사몰을 운영중인 분들을 대상으로 서비스를 제공할 예정입니다. 
 
-## 구조
-<img width="786" alt="image" src="https://github.com/user-attachments/assets/4fab60a5-de8f-4057-a873-cc93be3db74b">
+## 프로젝트 설명
+
+<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/24db5611-e6fd-4c86-b200-576fbc9aa302" />
+<img width="1920" height="1080" alt="2" src="https://github.com/user-attachments/assets/ecb2067c-d13a-40a5-a35f-8018323789bf" />
+<img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/377a8bf8-8a12-413d-b934-f4286d91a99e" />
+<img width="1920" height="1080" alt="4" src="https://github.com/user-attachments/assets/ed106aea-af80-4dd2-9784-b7c864e1bde3" />
+<img width="1920" height="1080" alt="5" src="https://github.com/user-attachments/assets/d949e522-e4ff-4dc1-a7ee-1cad37d4bf85" />
+<img width="1920" height="1080" alt="6" src="https://github.com/user-attachments/assets/819c92ed-907a-4e08-bba3-40327a3a6514" />
+<img width="1920" height="1080" alt="7" src="https://github.com/user-attachments/assets/36750e26-4734-4130-a335-7fea20777929" />
+<img width="1920" height="1080" alt="8" src="https://github.com/user-attachments/assets/4ecce432-8a2a-41c5-b458-6c6bc1b23951" />
+<img width="1920" height="1080" alt="9" src="https://github.com/user-attachments/assets/c5e4b341-e9af-4d69-82ed-bfb81e18a995" />
+<img width="1920" height="1080" alt="10" src="https://github.com/user-attachments/assets/d329e77f-e55b-4668-9ea2-a422c5f48a5a" />
+
 
 
 # 설치 방법
